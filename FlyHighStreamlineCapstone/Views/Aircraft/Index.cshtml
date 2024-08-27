@@ -4,16 +4,61 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<style>
+    /* Table Styling */
+    .airline-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px; /* Add some space below */
+    }
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+        .airline-table th, .airline-table td {
+            border: 1px solid #ddd; /* Light gray border */
+            padding: 12px;
+            text-align: left;
+        }
+    /* Edit Button Styling */
+    .btn-edit {
+        background-color: #007bff; /* Blue */
+        color: white;
+    }
+
+    .airline-table th {
+        background-color: #007bff; /* Blue header background */
+        color: white;
+    }
+
+    /* Button Styling */
+    .btn-add-flight {
+        background-color: #28a745; /* Green */
+        color: white;
+    }
+
+    .btn-delete {
+        background-color: #dc3545; /* Red */
+        color: white;
+    }
+</style>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6">
+            <h1>Aircraft</h1>
+        </div>
+        <div class="col-md-6 text-end">
+            <a asp-action="Create" class="btn btn-primary">Add Aircraft</a>
+        </div>
+    </div>
+</div>
+
+<table class="airline-table">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.AircraftType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Airline)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.RegistrationNumber)
@@ -24,9 +69,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.ManufactureDate)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Airline)
-            </th>
+           
             <th></th>
         </tr>
     </thead>
@@ -36,6 +79,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.AircraftType)
             </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Airline.AirlineID)
+                </td>
             <td>
                 @Html.DisplayFor(modelItem => item.RegistrationNumber)
             </td>
@@ -45,13 +91,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ManufactureDate)
             </td>
+            
             <td>
-                @Html.DisplayFor(modelItem => item.Airline.AirlineID)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.AircraftID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.AircraftID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.AircraftID">Delete</a>
+               <a asp-action="Edit" asp-route-id="@item.AirlineID" class="btn btn-success">Add Aircraft</a>
+               <a asp-action="Details" asp-route-id="@item.AirlineID" class="btn btn-edit">Details</a>
+               <a asp-action="Delete" asp-route-id="@item.AirlineID" class="btn btn-delete">Delete</a>
             </td>
         </tr>
 }
