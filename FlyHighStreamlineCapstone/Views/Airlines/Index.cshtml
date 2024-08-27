@@ -4,18 +4,18 @@
     ViewData["Title"] = "Index";
 }
 
+
 <div class="container mt-4">
     <div class="row">
         <div class="col-md-6">
             <h1>Airlines</h1>
         </div>
         <div class="col-md-6 text-end">
-            <a asp-action="Create" class="btn btn-primary">Add Airline</a>
+          
+            <a asp-controller="Airlines" asp-action="Create" class="btn btn-primary">Add Airline</a>
         </div>
     </div>
 </div>
-
-
 
 <style>
     /* Table Styling */
@@ -87,7 +87,7 @@
                     @Html.DisplayFor(modelItem => item.Country)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.AirlineID" class="btn btn-success">Add Airline</a>
+                  
                     <a asp-action="Details" asp-route-id="@item.AirlineID" class="btn btn-edit">Details</a>
                     <a asp-action="Delete" asp-route-id="@item.AirlineID" class="btn btn-delete">Delete</a>
                 </td>

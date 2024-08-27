@@ -46,7 +46,8 @@
             <h1>Aircraft</h1>
         </div>
         <div class="col-md-6 text-end">
-            <a asp-action="Create" class="btn btn-primary">Add Aircraft</a>
+         
+            <a asp-controller="Aircraft" asp-action="Create" class="btn btn-primary">Add Aircraft</a>
         </div>
     </div>
 </div>
@@ -80,8 +81,8 @@
                 @Html.DisplayFor(modelItem => item.AircraftType)
             </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Airline.AirlineID)
-                </td>
+                @Html.DisplayFor(modelItem => item.Airline.Name) 
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.RegistrationNumber)
             </td>
@@ -93,7 +94,6 @@
             </td>
             
             <td>
-               <a asp-action="Edit" asp-route-id="@item.AirlineID" class="btn btn-success">Add Aircraft</a>
                <a asp-action="Details" asp-route-id="@item.AirlineID" class="btn btn-edit">Details</a>
                <a asp-action="Delete" asp-route-id="@item.AirlineID" class="btn btn-delete">Delete</a>
             </td>

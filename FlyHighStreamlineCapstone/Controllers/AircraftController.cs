@@ -44,14 +44,12 @@ namespace FlyHighStreamlineCapstone.Controllers
         }
 
         // GET: Aircraft/Create
+        // In your AircraftController
         public IActionResult Create()
         {
-            
-
-            ViewData["AirlineID"] = new SelectList(_context.Airline, "AirlineID", "AirlineID");
+            ViewData["AirlineID"] = new SelectList(_context.Airline, "AirlineID", "Name"); // Use "Name" for display
             return View();
         }
-
         // POST: Aircraft/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
