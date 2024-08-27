@@ -1,0 +1,81 @@
+﻿@* Admin Layout*@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Booking</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <style>
+        .navbar-custom {
+            background-color: #0056b3; /* Adjust this color as needed */
+            color: white;
+        }
+
+            .navbar-custom .navbar-brand,
+            .navbar-custom .nav-link,
+            .navbar-custom .nav-item {
+                color: white;
+            }
+
+                .navbar-custom .nav-link:hover {
+                    color: #ddd; /* Optional: lighter color on hover */
+                }
+
+                .navbar-custom .nav-item.dropdown:hover .dropdown-menu {
+                    display: block; /* Show dropdown on hover */
+                }
+
+            .navbar-custom .dropdown-menu {
+                background-color: #0056b3;
+                color: white;
+            }
+
+            .navbar-custom .dropdown-item {
+                color: white;
+            }
+
+                .navbar-custom .dropdown-item:hover {
+                    background-color: #003d7a; /* Slightly darker blue for hover */
+                }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-custom">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link"  
+                               asp-area="" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
+                        </li>
+                        <li class="nav-item dropdown">                      
+                            <a class="nav-link dropdown-toggle" href="#" id="airlineDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Airline Management
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="airlineDropdown">
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Airlines" asp-action="Create">Airlines</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Aircraft" asp-action="Create">Aircraft</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
