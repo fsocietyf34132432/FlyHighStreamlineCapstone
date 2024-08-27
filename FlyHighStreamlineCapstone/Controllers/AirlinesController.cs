@@ -8,22 +8,23 @@ using Microsoft.EntityFrameworkCore;
 using FlyHighStreamlineCapstone.Data;
 using FlyHighStreamlineCapstone.Models;
 using FlyHighStreamlineCapstone.ViewModel;
+using FlyHighStreamlineCapstone.Interface;
 
 namespace FlyHighStreamlineCapstone.Controllers
 {
     public class AirlinesController : Controller
     {
-        private readonly FlyHighStreamlineCapstoneContext _context;
+        public readonly IBaseRepository<Airline> _airlinesRepository;
 
-        public AirlinesController(FlyHighStreamlineCapstoneContext context)
+        public AirlinesController(IBaseRepository<Airline> airlinesRepository)
         {
-            _context = context;
+            _airlinesRepository = airlinesRepository;
         }
 
         // GET: Airlines
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Airline.ToListAsync());
+            return View(await _airlinesRepository.GetAllAsync());
         }
 
         // GET: Airlines/Details/5
@@ -34,8 +35,7 @@ namespace FlyHighStreamlineCapstone.Controllers
                 return NotFound();
             }
 
-            var airline = await _context.Airline
-                .FirstOrDefaultAsync(m => m.AirlineID == id);
+            var airline = await _airlinesRepository.GetByIdAsync(id.Value);
             if (airline == null)
             {
                 return NotFound();
@@ -68,9 +68,8 @@ namespace FlyHighStreamlineCapstone.Controllers
 
                 };
 
-
-                _context.Add(airline);
-                await _context.SaveChangesAsync();
+                await _airlinesRepository.AddAsync(airline);
+                await _airlinesRepository.SaveAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(airlineViewModel);
@@ -84,7 +83,7 @@ namespace FlyHighStreamlineCapstone.Controllers
                 return NotFound();
             }
 
-            var airline = await _context.Airline.FindAsync(id);
+            var airline = await _airlinesRepository.GetByIdAsync(id.Value);
             if (airline == null)
             {
                 return NotFound();
@@ -108,19 +107,12 @@ namespace FlyHighStreamlineCapstone.Controllers
             {
                 try
                 {
-                    _context.Update(airline);
-                    await _context.SaveChangesAsync();
+                    _airlinesRepository.UpdateAsync(airline, );
+                    await _airlinesRepository.SaveAsync();
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateConcurrencyException ex)
                 {
-                    if (!AirlineExists(airline.AirlineID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    throw;
                 }
                 return RedirectToAction(nameof(Index));
             }
@@ -135,14 +127,9 @@ namespace FlyHighStreamlineCapstone.Controllers
                 return NotFound();
             }
 
-            var airline = await _context.Airline
-                .FirstOrDefaultAsync(m => m.AirlineID == id);
-            if (airline == null)
-            {
-                return NotFound();
-            }
+            _airlinesRepository.DeleteAsync(id.Value);
 
-            return View(airline);
+            return View();
         }
 
         // POST: Airlines/Delete/5
@@ -150,19 +137,21 @@ namespace FlyHighStreamlineCapstone.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var airline = await _context.Airline.FindAsync(id);
+            var airline = await _airlinesRepository.GetByIdAsync(id);
             if (airline != null)
             {
-                _context.Airline.Remove(airline);
+                _airlinesRepository.DeleteAsync(airline.AirlineID);
             }
 
-            await _context.SaveChangesAsync();
+            await _airlinesRepository.SaveAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool AirlineExists(int id)
+        private Task<Airline> AirlineExists(int id)
         {
-            return _context.Airline.Any(e => e.AirlineID == id);
+            var airline = _airlinesRepository.GetByIdAsync(id);
+
+            return airline;
         }
     }
 }
