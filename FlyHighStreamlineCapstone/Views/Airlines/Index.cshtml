@@ -2,7 +2,12 @@
 
 @{
     ViewData["Title"] = "Index";
+    Layout = "/Views/Shared/_AdminLayout.cshtml";
 }
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="https://cdn.datatables.net/2.1.4/css/dataTables.dataTables.css" />
+
 
 
 <div class="container mt-4">
@@ -11,11 +16,11 @@
             <h1>Airlines</h1>
         </div>
         <div class="col-md-6 text-end">
-          
             <a asp-controller="Airlines" asp-action="Create" class="btn btn-primary">Add Airline</a>
         </div>
     </div>
 </div>
+
 
 <style>
     /* Table Styling */
@@ -30,6 +35,7 @@
             padding: 12px;
             text-align: left;
         }
+
     /* Edit Button Styling */
     .btn-edit {
         background-color: #007bff; /* Blue */
@@ -52,21 +58,14 @@
         color: white;
     }
 </style>
-<table class="airline-table">
+
+<table id="airlineTable" class="table table-striped airline-table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IATA_Code)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ICAO_Code)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Country)
-            </th>
+            <th>@Html.DisplayNameFor(model => model.First().Name)</th>
+            <th>@Html.DisplayNameFor(model => model.First().IATA_Code)</th>
+            <th>@Html.DisplayNameFor(model => model.First().ICAO_Code)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Country)</th>
             <th></th>
         </tr>
     </thead>
@@ -74,25 +73,14 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IATA_Code)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ICAO_Code)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Country)
-                </td>
-                <td>
-                  
-                    <a asp-action="Details" asp-route-id="@item.AirlineID" class="btn btn-edit">Details</a>
-                    <a asp-action="Delete" asp-route-id="@item.AirlineID" class="btn btn-delete">Delete</a>
-                </td>
+                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.IATA_Code)</td>
+                <td>@Html.DisplayFor(modelItem => item.ICAO_Code)</td>
+                <td>@Html.DisplayFor(modelItem => item.Country)</td>
+             
             </tr>
         }
     </tbody>
 </table>
+<button class="clickMe">Submit</button>
 

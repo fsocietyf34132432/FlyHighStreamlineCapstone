@@ -1,4 +1,14 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿$(document).ready(function () {
+    $('#airlineTable').DataTable({
+        "paging": true,
 
-// Write your JavaScript code.
+        "searching": true,
+        "ordering": true,
+        "pageLength": 5
+
+    });
+
+});
+//$('.airline-table').click(function () {
+//    alert('hi');
+//})
