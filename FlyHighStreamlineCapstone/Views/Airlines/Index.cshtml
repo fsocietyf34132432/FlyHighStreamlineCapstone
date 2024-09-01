@@ -66,7 +66,8 @@
             <th>@Html.DisplayNameFor(model => model.First().IATA_Code)</th>
             <th>@Html.DisplayNameFor(model => model.First().ICAO_Code)</th>
             <th>@Html.DisplayNameFor(model => model.First().Country)</th>
-            <th></th>
+            <th>Action</th>
+          
         </tr>
     </thead>
     <tbody>
@@ -74,13 +75,16 @@
         {
             <tr>
                 <td>@Html.DisplayFor(modelItem => item.Name)</td>
-                <td>@Html.DisplayFor(modelItem => item.IATA_Code)</td>
+                <td>@Html.DisplayFor(modelItem=> item.IATA_Code)</td>
                 <td>@Html.DisplayFor(modelItem => item.ICAO_Code)</td>
                 <td>@Html.DisplayFor(modelItem => item.Country)</td>
-             
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.AirlineId" class="btn btn-sm btn-edit">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@item.AirlineId" class="btn btn-sm btn-delete">Delete</a> |
+                </td>
             </tr>
         }
     </tbody>
 </table>
-<button class="clickMe">Submit</button>
+
 

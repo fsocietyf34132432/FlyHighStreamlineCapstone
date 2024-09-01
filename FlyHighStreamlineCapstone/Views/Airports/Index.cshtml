@@ -1,0 +1,116 @@
+﻿@model IEnumerable<FlyHighStreamlineCapstone.Models.Airport>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6">
+            <h1>Airport</h1>
+        </div>
+        <div class="col-md-6 text-end">
+            <a asp-controller="Airports" asp-action="Create" class="btn btn-primary">Add Airport</a>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Table Styling */
+    .airline-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px; /* Add some space below */
+    }
+
+        .airline-table th, .airline-table td {
+            border: 1px solid #ddd; /* Light gray border */
+            padding: 12px;
+            text-align: left;
+        }
+
+    /* Edit Button Styling */
+    .btn-edit {
+        background-color: #007bff; /* Blue */
+        color: white;
+    }
+
+    .airline-table th {
+        background-color: #007bff; /* Blue header background */
+        color: white;
+    }
+
+    /* Button Styling */
+    .btn-add-flight {
+        background-color: #28a745; /* Green */
+        color: white;
+    }
+
+    .btn-delete {
+        background-color: #dc3545; /* Red */
+        color: white;
+    }
+</style>
+
+<table class="airline-table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AirportCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AirportName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GeographicArea)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Country)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Latitude)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Longitude)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AirportCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AirportName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GeographicArea)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Country)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Latitude)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Longitude)
+            </td>
+            <td>
+                    <a asp-action="Edit" asp-route-id="@item.AirportId" class="btn btn-sm btn-edit">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@item.AirportId" class="btn btn-sm btn-delete">Delete</a> |
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

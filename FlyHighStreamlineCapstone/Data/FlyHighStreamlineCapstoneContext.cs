@@ -17,7 +17,8 @@ namespace FlyHighStreamlineCapstone.Data
 
         public DbSet<FlyHighStreamlineCapstone.Models.Airline> Airline { get; set; } = default!;
         public DbSet<FlyHighStreamlineCapstone.Models.Aircraft> Aircraft { get; set; } = default!;
-        public DbSet<FlyHighStreamlineCapstone.ViewModel.AircraftViewModel> AircraftViewModel { get; set; } = default!;
-        public DbSet<FlyHighStreamlineCapstone.ViewModel.AirlineViewModel> AirlineViewModel { get; set; } = default!;
+        public DbSet<FlyHighStreamlineCapstone.Models.Flight> Flight { get; set; } = default!;
+        public DbSet<FlyHighStreamlineCapstone.Models.Airport> Airport { get; set; } = default!;
+
     }
 }

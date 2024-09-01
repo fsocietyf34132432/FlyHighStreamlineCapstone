@@ -1,6 +1,4 @@
-﻿@* Admin Layout*@
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -11,7 +9,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/2.1.3/css/dataTables.dataTables.css" />
     <style>
         .navbar-custom {
-            background-color: #0056b3; /* Adjust this color as needed */
+            background-color: #0056b3;
             color: white;
         }
 
@@ -22,11 +20,11 @@
             }
 
                 .navbar-custom .nav-link:hover {
-                    color: #ddd; /* Optional: lighter color on hover */
+                    color: #ddd;
                 }
 
                 .navbar-custom .nav-item.dropdown:hover .dropdown-menu {
-                    display: block; /* Show dropdown on hover */
+                    display: block;
                 }
 
             .navbar-custom .dropdown-menu {
@@ -39,8 +37,13 @@
             }
 
                 .navbar-custom .dropdown-item:hover {
-                    background-color: #003d7a; /* Slightly darker blue for hover */
+                    background-color: #003d7a;
                 }
+
+        /* Style for right alignment */
+        .navbar-nav.ml-auto {
+            margin-left: auto; /* Push items to the right */
+        }
     </style>
 </head>
 <body>
@@ -48,22 +51,42 @@
         <nav class="navbar navbar-expand-lg navbar-custom">
             <div class="container-fluid">
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <ul class="navbar-nav  
+ me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
                             <a class="nav-link"  
                                asp-area="" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
                         </li>
-                        <li class="nav-item dropdown">                      
-                            <a class="nav-link dropdown-toggle" href="#" id="airlineDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle"  
+                               href="#" id="airlineDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Airline Management
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="airlineDropdown">
-                                <li><a class="dropdown-item" asp-area="" asp-controller="Airlines" asp-action="Create">Airlines</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-controller="Aircraft" asp-action="Create">Aircraft</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Airlines" asp-action="Index">Airlines</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Aircraft" asp-action="Index">Aircraft</a></li>
                             </ul>
                         </li>
 
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="flightDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Flight Management
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="flightDropdown">
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Flights" asp-action="Index">Flights</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="airportDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Airport
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="flightDropdown">
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Airports" asp-action="Index">Airport</a></li>
+                            </ul>
+                        </li>
                     </ul>
+
                 </div>
             </div>
         </nav>
@@ -73,13 +96,27 @@
             @RenderBody()
         </main>
     </div>
-   
+  
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/2.1.3/js/dataTables.js"></script>
-    
+
+
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+    <script>
+        $(document).ready(function () {
+            // Initialize DataTables on any table with the class 'airline-table'
+            $('.airline-table').DataTable({
+                "paging": true,
+                "searching": true,
+                "ordering": true,
+                "pageLength": 5
+            });
+        });
+    </script>
+@*     <script src="~/js/site.js" asp-append-version="true"></script> *@
+    @await RenderSectionAsync("Scripts", required: false)  
+
 </body>
 </html>

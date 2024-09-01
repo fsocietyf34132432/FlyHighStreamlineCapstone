@@ -9,6 +9,4 @@
     });
 
 });
-//$('.airline-table').click(function () {
-//    alert('hi');
-//})
+

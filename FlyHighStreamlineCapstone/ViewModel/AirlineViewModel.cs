@@ -5,7 +5,7 @@ namespace FlyHighStreamlineCapstone.ViewModel
     public class AirlineViewModel
     {
         [Key]
-        public int AirlineID { get; set; }
+        public int AirlineId { get; set; }
 
         public string Name { get; set; } //AirlineName as if
 

@@ -7,7 +7,7 @@ namespace FlyHighStreamlineCapstone.Models
     {
 
         [Key]
-        public int AircraftID { get; set; }   
+        public int AircraftId { get; set; }   
 
         public string AircraftType { get; set; } //"Boeing 737-800"
 
@@ -18,7 +18,7 @@ namespace FlyHighStreamlineCapstone.Models
         public DateTime ManufactureDate { get; set; } //2015-03-12
 
         [ForeignKey("Airline")] //FK
-        public int AirlineID { get; set; } 
+        public int AirlineId { get; set; } 
         public Airline Airline { get; set; } 
     }
 }

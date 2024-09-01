@@ -4,8 +4,6 @@
     ViewData["Title"] = "Create";
 }
 
-
-
 <h4>Aircraft</h4>
 <hr />
 <div class="row">
@@ -18,8 +16,8 @@
                 <span asp-validation-for="AircraftType" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AirlineID" class="control-label"></label>
-                <select asp-for="AirlineID" class="form-control" asp-items="ViewBag.AirlineID">
+                <label asp-for="AirlineId" class="control-label"></label>
+                <select asp-for="AirlineId" class="form-control" asp-items="ViewBag.AirlineId">
                     <option value="">-- Select Airline --</option>
                 </select>
             </div>

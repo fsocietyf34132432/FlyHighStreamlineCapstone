@@ -7,7 +7,7 @@ namespace FlyHighStreamlineCapstone.ViewModel
     public class AircraftViewModel
     {
         [Key]
-        public int AircraftID { get; set; }
+        public int AircraftId { get; set; }
 
         //[Required]
         public string AircraftType { get; set; } //"Boeing 737-800"
@@ -18,7 +18,7 @@ namespace FlyHighStreamlineCapstone.ViewModel
         [DataType(DataType.Date)]
         public DateTime ManufactureDate { get; set; } //2015-03-12
 
-        public int AirlineID { get; set; }
+        public int AirlineId { get; set; }
 
     }
 }

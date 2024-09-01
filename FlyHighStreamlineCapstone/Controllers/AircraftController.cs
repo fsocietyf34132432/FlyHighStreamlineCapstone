@@ -34,7 +34,7 @@ namespace FlyHighStreamlineCapstone.Controllers
 
             var aircraft = await _context.Aircraft
                 .Include(a => a.Airline)
-                .FirstOrDefaultAsync(m => m.AircraftID == id);
+                .FirstOrDefaultAsync(m => m.AircraftId == id);
             if (aircraft == null)
             {
                 return NotFound();
@@ -47,7 +47,7 @@ namespace FlyHighStreamlineCapstone.Controllers
         // In your AircraftController
         public IActionResult Create()
         {
-            ViewData["AirlineID"] = new SelectList(_context.Airline, "AirlineID", "Name"); // Use "Name" for display
+            ViewData["AirlineId"] = new SelectList(_context.Airline, "AirlineId", "Name"); // Use "Name" for display
             return View();
         }
         // POST: Aircraft/Create
@@ -55,17 +55,17 @@ namespace FlyHighStreamlineCapstone.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AircraftID,AircraftType,RegistrationNumber,Capacity,ManufactureDate,AirlineID")] AircraftViewModel aircraftViewModel)
+        public async Task<IActionResult> Create([Bind("AircraftId,AircraftType,RegistrationNumber,Capacity,ManufactureDate,AirlineId")] AircraftViewModel aircraftViewModel)
         {
             if (ModelState.IsValid)
             {
                 Aircraft aircraft = new Aircraft {
-                    AircraftID = aircraftViewModel.AircraftID,
+                    AircraftId = aircraftViewModel.AircraftId,
                     AircraftType = aircraftViewModel.AircraftType,
                     RegistrationNumber = aircraftViewModel.RegistrationNumber,
                     Capacity = aircraftViewModel.Capacity,
                     ManufactureDate = aircraftViewModel.ManufactureDate,
-                    AirlineID = aircraftViewModel.AirlineID,
+                    AirlineId = aircraftViewModel.AirlineId,
 
                     
                 };               
@@ -73,7 +73,7 @@ namespace FlyHighStreamlineCapstone.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AirlineID"] = new SelectList(_context.Airline, "AirlineID", "AirlineID", aircraftViewModel.AirlineID);
+            ViewData["AirlineId"] = new SelectList(_context.Airline, "AirlineId", "AirlineId", aircraftViewModel.AirlineId);
             return View(aircraftViewModel);
         }
 
@@ -90,7 +90,7 @@ namespace FlyHighStreamlineCapstone.Controllers
             {
                 return NotFound();
             }
-            ViewData["AirlineID"] = new SelectList(_context.Airline, "AirlineID", "AirlineID", aircraft.AirlineID);
+            ViewData["AirlineId"] = new SelectList(_context.Airline, "AirlineId", "AirlineId", aircraft.AirlineId);
             return View(aircraft);
         }
 
@@ -99,9 +99,9 @@ namespace FlyHighStreamlineCapstone.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("AircraftID,AircraftType,RegistrationNumber,Capacity,ManufactureDate,AirlineID")] Aircraft aircraft)
+        public async Task<IActionResult> Edit(int id, [Bind("AircraftId,AircraftType,RegistrationNumber,Capacity,ManufactureDate,AirlineId")] Aircraft aircraft)
         {
-            if (id != aircraft.AircraftID)
+            if (id != aircraft.AirlineId)
             {
                 return NotFound();
             }
@@ -115,7 +115,7 @@ namespace FlyHighStreamlineCapstone.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AircraftExists(aircraft.AircraftID))
+                    if (!AircraftExists(aircraft.AircraftId))
                     {
                         return NotFound();
                     }
@@ -124,9 +124,10 @@ namespace FlyHighStreamlineCapstone.Controllers
                         throw;
                     }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AirlineID"] = new SelectList(_context.Airline, "AirlineID", "AirlineID", aircraft.AirlineID);
+            ViewData["AirlineID"] = new SelectList(_context.Airline, "AirlineId", "AirlineId", aircraft.AirlineId);
             return View(aircraft);
         }
 
@@ -140,7 +141,7 @@ namespace FlyHighStreamlineCapstone.Controllers
 
             var aircraft = await _context.Aircraft
                 .Include(a => a.Airline)
-                .FirstOrDefaultAsync(m => m.AircraftID == id);
+                .FirstOrDefaultAsync(m => m.AircraftId == id);
             if (aircraft == null)
             {
                 return NotFound();
@@ -166,7 +167,7 @@ namespace FlyHighStreamlineCapstone.Controllers
 
         private bool AircraftExists(int id)
         {
-            return _context.Aircraft.Any(e => e.AircraftID == id);
+            return _context.Aircraft.Any(e => e.AircraftId == id);
         }
     }
 }

@@ -1,0 +1,121 @@
+﻿@model IEnumerable<FlyHighStreamlineCapstone.ViewModel.FlightListViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<style>
+    /* Table Styling */
+    .airline-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px; /* Add some space below */
+    }
+
+        .airline-table th, .airline-table td {
+            border: 1px solid #ddd; /* Light gray border */
+            padding: 12px;
+            text-align: left;
+        }
+    /* Edit Button Styling */
+    .btn-edit {
+        background-color: #007bff; /* Blue */
+        color: white;
+    }
+
+    .airline-table th {
+        background-color: #007bff; /* Blue header background */
+        color: white;
+    }
+
+    /* Button Styling */
+    .btn-add-flight {
+        background-color: #28a745; /* Green */
+        color: white;
+    }
+
+    .btn-delete {
+        background-color: #dc3545; /* Red */
+        color: white;
+    }
+</style>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6">
+            <h1>Flight</h1>
+        </div>
+        <div class="col-md-6 text-end">
+
+            <a asp-controller="Flights" asp-action="Create" class="btn btn-primary">Add Flight</a>
+        </div>
+    </div>
+</div>
+<table class="airline-table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FlightNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DepartureTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArrivalTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Duration)
+            </th>
+           @*  <th>
+                @Html.DisplayNameFor(model => model.DepartureAirportId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArrivalAirportId)
+            </th> *@
+            <th>
+                @Html.DisplayNameFor(model => model.AirlineName)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FlightNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepartureTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ArrivalTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Duration)
+            </td>
+           @*  <td>
+                @Html.DisplayFor(modelItem => item.DepartureAirportId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ArrivalAirportId)
+            </td> *@
+            <td>
+                @Html.DisplayFor(modelItem => item.AirlineName)
+            </td>
+       
+            <td>
+                    <a asp-action="Edit" asp-route-id="@item.FlightId" class="btn btn-sm btn-edit">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@item.FlightId" class="btn btn-sm btn-delete">Delete</a> |
+              
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
