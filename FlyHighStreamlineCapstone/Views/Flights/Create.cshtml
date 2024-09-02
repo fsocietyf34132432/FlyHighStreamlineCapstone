@@ -4,9 +4,9 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
 
-<h4>FlightViewModel</h4>
+
+<h4>Add Flight</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -40,13 +40,13 @@
             <div class="form-group">
                 <label asp-for="DepartureAirportId" class="control-label"></label>
                 <select asp-for="DepartureAirportId" class="form-control" asp-items="ViewBag.DepartureAirportId">
-                    <option value="">-- Select Airline --</option>
+                    <option value="">-- Select Departure Airport --</option>
                 </select>
             </div>
             <div class="form-group">
                 <label asp-for="ArrivalAirportId" class="control-label"></label>
                 <select asp-for="ArrivalAirportId" class="form-control" asp-items="ViewBag.ArrivalAirportId">
-                    <option value="">-- Select Airline --</option>
+                    <option value="">-- Select Arrival Airport --</option>
                 </select>
             </div>
             <div class="form-group">
@@ -58,7 +58,7 @@
             <div class="form-group">
                 <label asp-for="AircraftId" class="control-label"></label>
                 <select asp-for="AircraftId" class="form-control" asp-items="ViewBag.AircraftId">
-                    <option value="">-- Select Airline --</option>
+                    <option value="">-- Select Aircraft --</option>
                 </select>
             </div>
             <div class="form-group">
