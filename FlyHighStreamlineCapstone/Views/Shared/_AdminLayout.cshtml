@@ -85,6 +85,21 @@
                                 <li><a class="dropdown-item" asp-area="" asp-controller="Airports" asp-action="Index">Airport</a></li>
                             </ul>
                         </li>
+
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="inventoryDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Inventory
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="flightDropdown">
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Seats" asp-action="Index">Seat</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link"  
+                               asp-area="" asp-controller="Passengers" asp-action="Index">Passenger</a>
+                        </li>
                     </ul>
 
                 </div>

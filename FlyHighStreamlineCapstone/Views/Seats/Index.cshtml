@@ -1,0 +1,124 @@
+﻿@model IEnumerable<FlyHighStreamlineCapstone.ViewModel.SeatListViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<style>
+    /* Table Styling */
+    .airline-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px; /* Add some space below */
+    }
+
+
+     
+
+        .airline-table th, .airline-table td {
+            border: 1px solid #ddd; /* Light gray border */
+            padding: 12px;
+            text-align: left !important;
+        }
+
+        .airline-table th, .airline-table td {
+            /* ... (existing styles) ... */
+            text-align: left;
+        }
+
+            .airline-table td:first-child {
+                text-align: left !important; /* Use !important to override any conflicting styles */
+            }
+    /* Edit Button Styling */
+    .btn-edit {
+        background-color: #007bff; /* Blue */
+        color: white;
+    }
+
+    .airline-table th {
+        background-color: #007bff; /* Blue header background */
+        color: white;
+    }
+
+    /* Button Styling */
+    .btn-add-flight {
+        background-color: #28a745; /* Green */
+        color: white;
+    }
+
+    .btn-delete {
+        background-color: #dc3545; /* Red */
+        color: white;
+    }
+
+</style>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6">
+            <h1>Seat</h1>
+        </div>
+        <div class="col-md-6 text-end">
+
+            <a asp-controller="Seats" asp-action="Create" class="btn btn-primary">Add Seat</a>
+        </div>
+    </div>
+</div>
+
+
+
+<table class="airline-table">
+    <thead>
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.FlightNo)
+            </th> 
+            <th>
+                @Html.DisplayNameFor(model => model.SeatNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Class)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsAvailable)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+            <tr>
+            <td>
+                    @Html.DisplayFor(modelItem => item.FlightNo)
+            </td> 
+            <td>
+                @Html.DisplayFor(modelItem => item.SeatNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Class)
+            </td>
+                <td>
+                    @if (item.IsAvailable)
+                    {
+                        <span style="color: green;">&#10003;</span>
+                    }
+                    else
+                    {
+                        <span style="color: red;">&#10005;</span>
+                    }
+                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                    <a asp-action="Edit" asp-route-id="@item.SeatId" class="btn btn-sm btn-edit">Edit</a>
+                    @*            <a asp-action="Delete" asp-route-id="@item.SeatId">Delete</a> | *@
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

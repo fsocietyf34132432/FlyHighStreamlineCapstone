@@ -172,6 +172,70 @@ namespace FlyHighStreamlineCapstone.Migrations
                     b.ToTable("Flight");
                 });
 
+            modelBuilder.Entity("FlyHighStreamlineCapstone.Models.Passenger", b =>
+                {
+                    b.Property<int>("PassengerId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PassengerId"));
+
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nationality")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PassportNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("PassengerId");
+
+                    b.ToTable("Passenger");
+                });
+
+            modelBuilder.Entity("FlyHighStreamlineCapstone.Models.Seat", b =>
+                {
+                    b.Property<int>("SeatId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SeatId"));
+
+                    b.Property<string>("Class")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("FlightId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsAvailable")
+                        .HasColumnType("bit");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("SeatNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SeatId");
+
+                    b.HasIndex("FlightId");
+
+                    b.ToTable("Seat");
+                });
+
             modelBuilder.Entity("FlyHighStreamlineCapstone.ViewModel.FlightListViewModel", b =>
                 {
                     b.Property<int>("FlightId")
@@ -307,6 +371,17 @@ namespace FlyHighStreamlineCapstone.Migrations
                     b.Navigation("ArrivalAirport");
 
                     b.Navigation("DepartureAirport");
+                });
+
+            modelBuilder.Entity("FlyHighStreamlineCapstone.Models.Seat", b =>
+                {
+                    b.HasOne("FlyHighStreamlineCapstone.Models.Flight", "Flight")
+                        .WithMany()
+                        .HasForeignKey("FlightId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Flight");
                 });
 #pragma warning restore 612, 618
         }

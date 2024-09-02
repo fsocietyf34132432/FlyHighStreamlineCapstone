@@ -73,7 +73,21 @@
 </div>
 
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+    <script>
+        const form = document.querySelector('form');
+        form.addEventListener('submit', (event) => {
+            const departureAirportId = document.getElementById('DepartureAirportId').value;
+            const arrivalAirportId = document.getElementById('ArrivalAirportId').value;
+            const departureTime = document.getElementById('DepartureTime').value;
+            const arrivalTime = document.getElementById('ArrivalTime').value;
+
+            if (departureAirportId === arrivalAirportId) {
+                event.preventDefault();
+                alert('Departure and Arrival Airports Name cannot be the same.');
+            } else if (departureTime === arrivalTime) {
+                event.preventDefault();
+                alert('Departure and Arrival Date and Time cannot be the same.');
+            }
+        });
+    </script>
 }

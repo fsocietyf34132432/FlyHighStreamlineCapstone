@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.CompilerServices;
 
 namespace FlyHighStreamlineCapstone.ViewModel
@@ -12,7 +13,7 @@ namespace FlyHighStreamlineCapstone.ViewModel
         public DateTime ArrivalTime { get; set; }
         public string Status { get; set; }
 
-    
+      
         public int Duration { get; set; }
         [Display(Name = "Departure Airport Name")]
         public int DepartureAirportId { get; set; }

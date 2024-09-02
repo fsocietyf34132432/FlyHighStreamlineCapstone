@@ -1,9 +1,10 @@
-﻿@model IEnumerable<FlyHighStreamlineCapstone.Models.Aircraft>
+﻿@model IEnumerable<FlyHighStreamlineCapstone.Models.Passenger>
 
 @{
     ViewData["Title"] = "Index";
 }
 
+<h1>Passenger</h1>
 <style>
     /* Table Styling */
     .airline-table {
@@ -38,65 +39,65 @@
         background-color: #dc3545; /* Red */
         color: white;
     }
+
 </style>
 
-<div class="container mt-4">
+@* <div class="container mt-4">
     <div class="row">
         <div class="col-md-6">
-            <h1>Aircraft</h1>
+            <h1>Passenger</h1>
         </div>
         <div class="col-md-6 text-end">
-         
-            <a asp-controller="Aircraft" asp-action="Create" class="btn btn-primary">Add Aircraft</a>
+
+            <a asp-controller="Passengers" asp-action="Create" class="btn btn-primary">Add Passenger</a>
         </div>
     </div>
 </div>
-
+ *@
 <table class="airline-table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.AircraftType)
+                @Html.DisplayNameFor(model => model.FirstName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Airline)
+                @Html.DisplayNameFor(model => model.LastName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RegistrationNumber)
+                @Html.DisplayNameFor(model => model.DateOfBirth)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Capacity)
+                @Html.DisplayNameFor(model => model.PassportNumber)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ManufactureDate)
+                @Html.DisplayNameFor(model => model.Nationality)
             </th>
-           
-            <th>Action</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.AircraftType)
-            </td>
-                <td>
-                @Html.DisplayFor(modelItem => item.Airline.Name) 
+                @Html.DisplayFor(modelItem => item.FirstName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.RegistrationNumber)
+                @Html.DisplayFor(modelItem => item.LastName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Capacity)
+                @Html.DisplayFor(modelItem => item.DateOfBirth)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ManufactureDate)
+                @Html.DisplayFor(modelItem => item.PassportNumber)
             </td>
-
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.AircraftId" class="btn btn-sm btn-edit">Edit </a> 
-                  @*   <a asp-action="Delete" asp-route-id="@item.AircraftId" class="btn btn-sm btn-delete">Delete</a> | *@
-                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nationality)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.PassengerId">Edit</a> 
+              @*   <a asp-action="Details" asp-route-id="@item.PassengerId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.PassengerId">Delete</a> *@
+            </td>
         </tr>
 }
     </tbody>

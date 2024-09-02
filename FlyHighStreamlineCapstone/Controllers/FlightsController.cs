@@ -88,6 +88,8 @@ namespace FlyHighStreamlineCapstone.Controllers
         {
             if (ModelState.IsValid)
             {
+
+
                 Flight flight = new Flight
                 {
                     FlightId = flightViewModel.FlightId,
@@ -100,6 +102,7 @@ namespace FlyHighStreamlineCapstone.Controllers
                     ArrivalAirportId = flightViewModel.ArrivalAirportId,
                     AirlineId = flightViewModel.AirlineId,
                     AircraftId = flightViewModel.AircraftId,
+             
 
 
                 };
