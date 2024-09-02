@@ -13,8 +13,8 @@ namespace FlyHighStreamlineCapstone.ViewModel
 
     
         public int Duration { get; set; }
-        public int DepartureAirportId { get; set; }
-        public int ArrivalAirportId { get; set; }
+        public string DepartureAirportName { get; set; }
+        public string ArrivalAirportName { get; set; }
         public string AirlineName { get; set; }
         public string  AircraftRegistrationNumber { get; set; }
     }

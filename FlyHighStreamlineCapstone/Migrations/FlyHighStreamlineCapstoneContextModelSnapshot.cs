@@ -165,7 +165,102 @@ namespace FlyHighStreamlineCapstone.Migrations
 
                     b.HasIndex("AirlineId");
 
+                    b.HasIndex("ArrivalAirportId");
+
+                    b.HasIndex("DepartureAirportId");
+
                     b.ToTable("Flight");
+                });
+
+            modelBuilder.Entity("FlyHighStreamlineCapstone.ViewModel.FlightListViewModel", b =>
+                {
+                    b.Property<int>("FlightId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FlightId"));
+
+                    b.Property<string>("AircraftRegistrationNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AirlineName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ArrivalAirportName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ArrivalTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DepartureAirportName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DepartureTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Duration")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FlightNo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("FlightId");
+
+                    b.ToTable("FlightListViewModel");
+                });
+
+            modelBuilder.Entity("FlyHighStreamlineCapstone.ViewModel.FlightViewModel", b =>
+                {
+                    b.Property<int>("FlightId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FlightId"));
+
+                    b.Property<int>("AircraftId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AirlineId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AirportId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ArrivalAirportId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ArrivalTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("DepartureAirportId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DepartureTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Duration")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FlightNo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("FlightId");
+
+                    b.ToTable("FlightViewModel");
                 });
 
             modelBuilder.Entity("FlyHighStreamlineCapstone.Models.Aircraft", b =>
@@ -193,9 +288,25 @@ namespace FlyHighStreamlineCapstone.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("FlyHighStreamlineCapstone.Models.Airport", "ArrivalAirport")
+                        .WithMany()
+                        .HasForeignKey("ArrivalAirportId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FlyHighStreamlineCapstone.Models.Airport", "DepartureAirport")
+                        .WithMany()
+                        .HasForeignKey("DepartureAirportId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Aircraft");
 
                     b.Navigation("Airline");
+
+                    b.Navigation("ArrivalAirport");
+
+                    b.Navigation("DepartureAirport");
                 });
 #pragma warning restore 612, 618
         }

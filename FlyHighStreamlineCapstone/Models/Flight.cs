@@ -29,6 +29,15 @@ namespace FlyHighStreamlineCapstone.Models
         public Aircraft Aircraft { get; set; }
 
 
+        [ForeignKey("DepartureAirportId")]
+        public Airport DepartureAirport { get; set; }
+
+        [ForeignKey("ArrivalAirportId")]
+        public Airport ArrivalAirport { get; set; }
+
+
+
+
 
 
     }

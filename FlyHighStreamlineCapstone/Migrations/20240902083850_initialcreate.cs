@@ -47,6 +47,49 @@ namespace FlyHighStreamlineCapstone.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "FlightListViewModel",
+                columns: table => new
+                {
+                    FlightId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FlightNo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DepartureTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ArrivalTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Duration = table.Column<int>(type: "int", nullable: false),
+                    DepartureAirportName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ArrivalAirportName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AirlineName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AircraftRegistrationNumber = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FlightListViewModel", x => x.FlightId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "FlightViewModel",
+                columns: table => new
+                {
+                    FlightId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FlightNo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DepartureTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ArrivalTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Duration = table.Column<int>(type: "int", nullable: false),
+                    DepartureAirportId = table.Column<int>(type: "int", nullable: false),
+                    ArrivalAirportId = table.Column<int>(type: "int", nullable: false),
+                    AirlineId = table.Column<int>(type: "int", nullable: false),
+                    AircraftId = table.Column<int>(type: "int", nullable: false),
+                    AirportId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FlightViewModel", x => x.FlightId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Aircraft",
                 columns: table => new
                 {
@@ -100,6 +143,18 @@ namespace FlyHighStreamlineCapstone.Migrations
                         principalTable: "Airline",
                         principalColumn: "AirlineId",
                         onDelete: ReferentialAction.NoAction);
+                    table.ForeignKey(
+                        name: "FK_Flight_Airport_ArrivalAirportId",
+                        column: x => x.ArrivalAirportId,
+                        principalTable: "Airport",
+                        principalColumn: "AirportId",
+                        onDelete: ReferentialAction.NoAction);
+                    table.ForeignKey(
+                        name: "FK_Flight_Airport_DepartureAirportId",
+                        column: x => x.DepartureAirportId,
+                        principalTable: "Airport",
+                        principalColumn: "AirportId",
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateIndex(
@@ -116,19 +171,35 @@ namespace FlyHighStreamlineCapstone.Migrations
                 name: "IX_Flight_AirlineId",
                 table: "Flight",
                 column: "AirlineId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Flight_ArrivalAirportId",
+                table: "Flight",
+                column: "ArrivalAirportId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Flight_DepartureAirportId",
+                table: "Flight",
+                column: "DepartureAirportId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Airport");
-
-            migrationBuilder.DropTable(
                 name: "Flight");
 
             migrationBuilder.DropTable(
+                name: "FlightListViewModel");
+
+            migrationBuilder.DropTable(
+                name: "FlightViewModel");
+
+            migrationBuilder.DropTable(
                 name: "Aircraft");
+
+            migrationBuilder.DropTable(
+                name: "Airport");
 
             migrationBuilder.DropTable(
                 name: "Airline");

@@ -18,5 +18,6 @@ namespace FlyHighStreamlineCapstone.ViewModel
         public int ArrivalAirportId { get; set; }
         public int AirlineId { get; set; }
         public int AircraftId { get; set; }
+        public int AirportId { get; set; }
     }
 }

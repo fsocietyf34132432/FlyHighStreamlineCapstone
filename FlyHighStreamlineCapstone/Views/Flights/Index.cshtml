@@ -47,7 +47,7 @@
         </div>
         <div class="col-md-6 text-end">
 
-            <a asp-controller="Flight" asp-action="Create" class="btn btn-primary">Add Flight</a>
+            <a asp-controller="Flights" asp-action="Create" class="btn btn-primary">Add Flight</a>
         </div>
     </div>
 </div>
@@ -70,10 +70,10 @@
                 @Html.DisplayNameFor(model => model.Duration)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DepartureAirportId)
+                @Html.DisplayNameFor(model => model.DepartureAirportName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ArrivalAirportId)
+                @Html.DisplayNameFor(model => model.ArrivalAirportName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.AirlineName)
@@ -103,10 +103,10 @@
                 @Html.DisplayFor(modelItem => item.Duration)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DepartureAirportId)
+                    @Html.DisplayFor(modelItem => item.DepartureAirportName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ArrivalAirportId)
+                @Html.DisplayFor(modelItem => item.ArrivalAirportName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.AirlineName)

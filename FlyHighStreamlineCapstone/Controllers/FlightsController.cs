@@ -23,31 +23,30 @@ namespace FlyHighStreamlineCapstone.Controllers
         // GET: Flights
         public async Task<IActionResult> Index()
         {
-            var flightlistViewModel = _context.Flight.ToList();
+            var flightList = await _context.Flight
+                .Include(f => f.DepartureAirport)
+                .Include(f => f.ArrivalAirport)
+                .Include(f => f.Airline)
+                .Include(f => f.Aircraft)
+                .ToListAsync();
 
-            List<FlightListViewModel> list = new List<FlightListViewModel>();
-            foreach (var flight in flightlistViewModel)
+            var flightListViewModel = flightList.Select(flight => new FlightListViewModel
             {
-                // Create a new FlightListViewModel instance for EACH flight
-                FlightListViewModel flightmodel = new FlightListViewModel
-                {
-                    FlightId = flight.FlightId,
-                    FlightNo = flight.FlightNo,
-                    DepartureTime = flight.DepartureTime,
-                    ArrivalTime = flight.ArrivalTime,
-                    Status = flight.Status,
-                    Duration = flight.Duration,
-                    DepartureAirportId = flight.DepartureAirportId,
-                    ArrivalAirportId = flight.ArrivalAirportId,
-                    AirlineName = _context.Airline.Where(x => x.AirlineId == flight.AirlineId).FirstOrDefault()?.Name ?? default!,
-                    AircraftRegistrationNumber = _context.Aircraft.Where(a => a.AircraftId == flight.AircraftId).FirstOrDefault()?.RegistrationNumber ?? default!
-                };
+                FlightId = flight.FlightId,
+                FlightNo = flight.FlightNo,
+                DepartureTime = flight.DepartureTime,
+                ArrivalTime = flight.ArrivalTime,
+                Status = flight.Status,
+                Duration = flight.Duration,
+                DepartureAirportName = flight.DepartureAirport?.AirportName ?? default!,
+                ArrivalAirportName = flight.ArrivalAirport?.AirportName ?? default!,
+                AirlineName = flight.Airline?.Name ?? default!,
+                AircraftRegistrationNumber = flight.Aircraft?.RegistrationNumber ?? default!
+            }).ToList();
 
-                list.Add(flightmodel);
-            }
-
-            return View(list);
+            return View(flightListViewModel);
         }
+
 
         // GET: Flights/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -72,17 +71,20 @@ namespace FlyHighStreamlineCapstone.Controllers
         // GET: Flights/Create
         public IActionResult Create()
         {
-            ViewData["AircraftId"] = new SelectList(_context.Aircraft, "AircraftId", "RegistrationNumber");
-            ViewData["AirlineId"] = new SelectList(_context.Airline, "AirlineId", "Name");
+            ViewBag.DepartureAirportId = new SelectList(_context.Airport, "AirportId", "AirportName");
+            ViewBag.ArrivalAirportId = new SelectList(_context.Airport, "AirportId", "AirportName");
+            ViewBag.AirlineId = new SelectList(_context.Airline, "AirlineId", "Name");
+            ViewBag.AircraftId = new SelectList(_context.Aircraft, "AircraftId", "RegistrationNumber");
             return View();
         }
+
 
         // POST: Flights/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FlightId,FlightNo,DepartureTime,ArrivalTime,Status,Duration,DepartureAirportId,ArrivalAirportId,AirlineId,AircraftId")] FlightViewModel flightViewModel)
+        public async Task<IActionResult> Create([Bind("FlightId,FlightNo,DepartureTime,ArrivalTime,Status,Duration,DepartureAirportId,ArrivalAirportId,AirlineId,AircraftId,AirportId")] FlightViewModel flightViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -105,6 +107,7 @@ namespace FlyHighStreamlineCapstone.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["AirportId"] = new SelectList(_context.Aircraft, "AirportId", "AirportName");
             ViewData["AircraftId"] = new SelectList(_context.Aircraft, "AircraftId", "RegistrationNumber");
             ViewData["AirlineId"] = new SelectList(_context.Airline, "AirlineId", "Name");
             return View(flightViewModel);
