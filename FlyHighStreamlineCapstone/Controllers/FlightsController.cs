@@ -39,7 +39,8 @@ namespace FlyHighStreamlineCapstone.Controllers
                     Duration = flight.Duration,
                     DepartureAirportId = flight.DepartureAirportId,
                     ArrivalAirportId = flight.ArrivalAirportId,
-                    AirlineName = _context.Airline.Where(x => x.AirlineId == flight.AirlineId).FirstOrDefault()?.Name ?? default!
+                    AirlineName = _context.Airline.Where(x => x.AirlineId == flight.AirlineId).FirstOrDefault()?.Name ?? default!,
+                    AircraftRegistrationNumber = _context.Aircraft.Where(a => a.AircraftId == flight.AircraftId).FirstOrDefault()?.RegistrationNumber ?? default!
                 };
 
                 list.Add(flightmodel);
@@ -57,6 +58,8 @@ namespace FlyHighStreamlineCapstone.Controllers
             }
 
             var flight = await _context.Flight
+                .Include(f => f.Aircraft)
+                .Include(f => f.Airline)
                 .FirstOrDefaultAsync(m => m.FlightId == id);
             if (flight == null)
             {
@@ -69,13 +72,17 @@ namespace FlyHighStreamlineCapstone.Controllers
         // GET: Flights/Create
         public IActionResult Create()
         {
-            ViewData["AirlineId"] = new SelectList(_context.Airline, "AirlineId", "Name"); // Use "Name" for display
+            ViewData["AircraftId"] = new SelectList(_context.Aircraft, "AircraftId", "RegistrationNumber");
+            ViewData["AirlineId"] = new SelectList(_context.Airline, "AirlineId", "Name");
             return View();
         }
 
+        // POST: Flights/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FlightId,FlightNo,DepartureTime,ArrivalTime,Status,Duration,DepartureAirportId,ArrivalAirportId,AirlineId")] FlightViewModel flightViewModel)
+        public async Task<IActionResult> Create([Bind("FlightId,FlightNo,DepartureTime,ArrivalTime,Status,Duration,DepartureAirportId,ArrivalAirportId,AirlineId,AircraftId")] FlightViewModel flightViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -90,16 +97,15 @@ namespace FlyHighStreamlineCapstone.Controllers
                     DepartureAirportId = flightViewModel.DepartureAirportId,
                     ArrivalAirportId = flightViewModel.ArrivalAirportId,
                     AirlineId = flightViewModel.AirlineId,
-            
+                    AircraftId = flightViewModel.AircraftId,
+
 
                 };
-
                 _context.Add(flight);
                 await _context.SaveChangesAsync();
-                // Clear ModelState to force a refresh
-                ModelState.Clear();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["AircraftId"] = new SelectList(_context.Aircraft, "AircraftId", "RegistrationNumber");
             ViewData["AirlineId"] = new SelectList(_context.Airline, "AirlineId", "Name");
             return View(flightViewModel);
         }
@@ -117,6 +123,8 @@ namespace FlyHighStreamlineCapstone.Controllers
             {
                 return NotFound();
             }
+            ViewData["AircraftId"] = new SelectList(_context.Aircraft, "AircraftId", "AircraftId", flight.AircraftId);
+            ViewData["AirlineId"] = new SelectList(_context.Airline, "AirlineId", "AirlineId", flight.AirlineId);
             return View(flight);
         }
 
@@ -152,6 +160,8 @@ namespace FlyHighStreamlineCapstone.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["AircraftId"] = new SelectList(_context.Aircraft, "AircraftId", "AircraftId", flight.AircraftId);
+            ViewData["AirlineId"] = new SelectList(_context.Airline, "AirlineId", "AirlineId", flight.AirlineId);
             return View(flight);
         }
 
@@ -164,6 +174,8 @@ namespace FlyHighStreamlineCapstone.Controllers
             }
 
             var flight = await _context.Flight
+                .Include(f => f.Aircraft)
+                .Include(f => f.Airline)
                 .FirstOrDefaultAsync(m => m.FlightId == id);
             if (flight == null)
             {

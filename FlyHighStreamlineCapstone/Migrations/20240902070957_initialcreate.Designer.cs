@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FlyHighStreamlineCapstone.Migrations
 {
     [DbContext(typeof(FlyHighStreamlineCapstoneContext))]
-    [Migration("20240831130827_initialcreate")]
+    [Migration("20240902070957_initialcreate")]
     partial class initialcreate
     {
         /// <inheritdoc />
@@ -133,6 +133,9 @@ namespace FlyHighStreamlineCapstone.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FlightId"));
 
+                    b.Property<int>("AircraftId")
+                        .HasColumnType("int");
+
                     b.Property<int>("AirlineId")
                         .HasColumnType("int");
 
@@ -161,6 +164,8 @@ namespace FlyHighStreamlineCapstone.Migrations
 
                     b.HasKey("FlightId");
 
+                    b.HasIndex("AircraftId");
+
                     b.HasIndex("AirlineId");
 
                     b.ToTable("Flight");
@@ -179,11 +184,19 @@ namespace FlyHighStreamlineCapstone.Migrations
 
             modelBuilder.Entity("FlyHighStreamlineCapstone.Models.Flight", b =>
                 {
+                    b.HasOne("FlyHighStreamlineCapstone.Models.Aircraft", "Aircraft")
+                        .WithMany()
+                        .HasForeignKey("AircraftId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("FlyHighStreamlineCapstone.Models.Airline", "Airline")
                         .WithMany()
                         .HasForeignKey("AirlineId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Aircraft");
 
                     b.Navigation("Airline");
                 });

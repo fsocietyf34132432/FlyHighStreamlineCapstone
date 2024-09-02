@@ -82,23 +82,35 @@ namespace FlyHighStreamlineCapstone.Migrations
                     Duration = table.Column<int>(type: "int", nullable: false),
                     DepartureAirportId = table.Column<int>(type: "int", nullable: false),
                     ArrivalAirportId = table.Column<int>(type: "int", nullable: false),
-                    AirlineId = table.Column<int>(type: "int", nullable: false)
+                    AirlineId = table.Column<int>(type: "int", nullable: false),
+                    AircraftId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Flight", x => x.FlightId);
                     table.ForeignKey(
+                        name: "FK_Flight_Aircraft_AircraftId",
+                        column: x => x.AircraftId,
+                        principalTable: "Aircraft",
+                        principalColumn: "AircraftId",
+                        onDelete: ReferentialAction.NoAction);
+                    table.ForeignKey(
                         name: "FK_Flight_Airline_AirlineId",
                         column: x => x.AirlineId,
                         principalTable: "Airline",
                         principalColumn: "AirlineId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Aircraft_AirlineId",
                 table: "Aircraft",
                 column: "AirlineId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Flight_AircraftId",
+                table: "Flight",
+                column: "AircraftId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Flight_AirlineId",
@@ -110,13 +122,13 @@ namespace FlyHighStreamlineCapstone.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Aircraft");
-
-            migrationBuilder.DropTable(
                 name: "Airport");
 
             migrationBuilder.DropTable(
                 name: "Flight");
+
+            migrationBuilder.DropTable(
+                name: "Aircraft");
 
             migrationBuilder.DropTable(
                 name: "Airline");

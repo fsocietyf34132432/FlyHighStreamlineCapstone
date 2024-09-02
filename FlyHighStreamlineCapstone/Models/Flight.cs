@@ -12,6 +12,7 @@ namespace FlyHighStreamlineCapstone.Models
         public DateTime ArrivalTime { get; set; }
         public string Status { get; set; }
     
+
         public int Duration { get; set; }
 
         // Foreign keys to establish relationships with other entities
@@ -22,6 +23,10 @@ namespace FlyHighStreamlineCapstone.Models
         [ForeignKey("Airline")] 
         public int AirlineId { get; set; }
         public Airline Airline { get; set; }
+        
+        [ForeignKey("Aircraft")] 
+        public int AircraftId { get; set; }
+        public Aircraft Aircraft { get; set; }
 
 
 

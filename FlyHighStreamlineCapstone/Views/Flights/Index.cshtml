@@ -47,7 +47,7 @@
         </div>
         <div class="col-md-6 text-end">
 
-            <a asp-controller="Flights" asp-action="Create" class="btn btn-primary">Add Flight</a>
+            <a asp-controller="Flight" asp-action="Create" class="btn btn-primary">Add Flight</a>
         </div>
     </div>
 </div>
@@ -69,16 +69,18 @@
             <th>
                 @Html.DisplayNameFor(model => model.Duration)
             </th>
-           @*  <th>
+            <th>
                 @Html.DisplayNameFor(model => model.DepartureAirportId)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ArrivalAirportId)
-            </th> *@
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.AirlineName)
             </th>
-
+            <th>
+                @Html.DisplayNameFor(model => model.AircraftRegistrationNumber)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -100,20 +102,22 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Duration)
             </td>
-           @*  <td>
+            <td>
                 @Html.DisplayFor(modelItem => item.DepartureAirportId)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ArrivalAirportId)
-            </td> *@
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.AirlineName)
             </td>
-       
             <td>
-                    <a asp-action="Edit" asp-route-id="@item.FlightId" class="btn btn-sm btn-edit">Edit</a> |
-                    <a asp-action="Delete" asp-route-id="@item.FlightId" class="btn btn-sm btn-delete">Delete</a> |
-              
+                    @Html.DisplayFor(modelItem => item.AircraftRegistrationNumber)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.FlightId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.FlightId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.FlightId">Delete</a>
             </td>
         </tr>
 }
