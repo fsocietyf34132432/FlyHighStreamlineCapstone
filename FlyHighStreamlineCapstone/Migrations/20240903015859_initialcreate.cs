@@ -56,7 +56,6 @@ namespace FlyHighStreamlineCapstone.Migrations
                     DepartureTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ArrivalTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Duration = table.Column<int>(type: "int", nullable: false),
                     DepartureAirportName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ArrivalAirportName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AirlineName = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -77,7 +76,6 @@ namespace FlyHighStreamlineCapstone.Migrations
                     DepartureTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ArrivalTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Duration = table.Column<int>(type: "int", nullable: false),
                     DepartureAirportId = table.Column<int>(type: "int", nullable: false),
                     ArrivalAirportId = table.Column<int>(type: "int", nullable: false),
                     AirlineId = table.Column<int>(type: "int", nullable: false),
@@ -104,6 +102,40 @@ namespace FlyHighStreamlineCapstone.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Passenger", x => x.PassengerId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SeatListViewModel",
+                columns: table => new
+                {
+                    SeatId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FlightNo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SeatNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Class = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsAvailable = table.Column<bool>(type: "bit", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SeatListViewModel", x => x.SeatId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SeatViewModel",
+                columns: table => new
+                {
+                    SeatId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FlightId = table.Column<int>(type: "int", nullable: false),
+                    SeatNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Class = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsAvailable = table.Column<bool>(type: "bit", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SeatViewModel", x => x.SeatId);
                 });
 
             migrationBuilder.CreateTable(
@@ -139,7 +171,6 @@ namespace FlyHighStreamlineCapstone.Migrations
                     DepartureTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ArrivalTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Duration = table.Column<int>(type: "int", nullable: false),
                     DepartureAirportId = table.Column<int>(type: "int", nullable: false),
                     ArrivalAirportId = table.Column<int>(type: "int", nullable: false),
                     AirlineId = table.Column<int>(type: "int", nullable: false),
@@ -242,6 +273,12 @@ namespace FlyHighStreamlineCapstone.Migrations
 
             migrationBuilder.DropTable(
                 name: "Seat");
+
+            migrationBuilder.DropTable(
+                name: "SeatListViewModel");
+
+            migrationBuilder.DropTable(
+                name: "SeatViewModel");
 
             migrationBuilder.DropTable(
                 name: "Flight");

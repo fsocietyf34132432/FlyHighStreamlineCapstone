@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FlyHighStreamlineCapstone.Migrations
 {
     [DbContext(typeof(FlyHighStreamlineCapstoneContext))]
-    [Migration("20240902125128_initialcreate")]
+    [Migration("20240903015859_initialcreate")]
     partial class initialcreate
     {
         /// <inheritdoc />
@@ -151,9 +151,6 @@ namespace FlyHighStreamlineCapstone.Migrations
                     b.Property<DateTime>("DepartureTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Duration")
-                        .HasColumnType("int");
-
                     b.Property<string>("FlightNo")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -269,9 +266,6 @@ namespace FlyHighStreamlineCapstone.Migrations
                     b.Property<DateTime>("DepartureTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Duration")
-                        .HasColumnType("int");
-
                     b.Property<string>("FlightNo")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -314,9 +308,6 @@ namespace FlyHighStreamlineCapstone.Migrations
                     b.Property<DateTime>("DepartureTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Duration")
-                        .HasColumnType("int");
-
                     b.Property<string>("FlightNo")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -328,6 +319,67 @@ namespace FlyHighStreamlineCapstone.Migrations
                     b.HasKey("FlightId");
 
                     b.ToTable("FlightViewModel");
+                });
+
+            modelBuilder.Entity("FlyHighStreamlineCapstone.ViewModel.SeatListViewModel", b =>
+                {
+                    b.Property<int>("SeatId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SeatId"));
+
+                    b.Property<string>("Class")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FlightNo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsAvailable")
+                        .HasColumnType("bit");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("SeatNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SeatId");
+
+                    b.ToTable("SeatListViewModel");
+                });
+
+            modelBuilder.Entity("FlyHighStreamlineCapstone.ViewModel.SeatViewModel", b =>
+                {
+                    b.Property<int>("SeatId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SeatId"));
+
+                    b.Property<string>("Class")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("FlightId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsAvailable")
+                        .HasColumnType("bit");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("SeatNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SeatId");
+
+                    b.ToTable("SeatViewModel");
                 });
 
             modelBuilder.Entity("FlyHighStreamlineCapstone.Models.Aircraft", b =>
