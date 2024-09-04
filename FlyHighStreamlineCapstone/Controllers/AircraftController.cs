@@ -20,8 +20,19 @@ namespace FlyHighStreamlineCapstone.Controllers
         // GET: Aircraft
         public async Task<IActionResult> Index()
         {
-            var flyHighStreamlineCapstoneContext = _context.Aircraft.Include(a => a.Airline);
-            return View(await flyHighStreamlineCapstoneContext.ToListAsync());
+            var aircraftList = await _context.Aircraft.Include(a => a.Airline).ToListAsync();
+
+            var aircraftViewModel = aircraftList.Select(aircraft => new AircraftListViewModel
+            {
+                AircraftId = aircraft.AircraftId,
+                AircraftType = aircraft.AircraftType,  // Access directly from 'aircraft'
+                RegistrationNumber = aircraft.RegistrationNumber,
+                Capacity = aircraft.Capacity,
+                ManufactureDate = aircraft.ManufactureDate,
+                AirlineName = aircraft.Airline?.Name  // Use null conditional operator here as well
+            }).ToList();
+
+            return View(aircraftViewModel);
         }
 
         // GET: Aircraft/Details/5

@@ -24,14 +24,14 @@ namespace FlyHighStreamlineCapstone.Controllers
         public async Task<IActionResult> Index()
         {
             var seatList = await _context.Seat
-        .Include(s => s.Flight) // Include the related Flight entity
+        .Include(s => s.Aircraft) // Include the related Flight entity
         .ToListAsync();
 
             var seatListViewModels = seatList.Select(seat => new SeatListViewModel
             {
                 SeatId = seat.SeatId,                     // Use SeatId from the Seat object
                 SeatNumber = seat.SeatNumber,
-                FlightNo = seat.Flight.FlightNo,
+                AircraftType = seat.Aircraft.AircraftType,
                 Class = seat.Class,
                 IsAvailable = seat.IsAvailable,
                 Price = seat.Price,
@@ -42,6 +42,7 @@ namespace FlyHighStreamlineCapstone.Controllers
             return View(seatListViewModels);
         }
 
+
         // GET: Seats/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -51,7 +52,7 @@ namespace FlyHighStreamlineCapstone.Controllers
             }
 
             var seat = await _context.Seat
-                .Include(s => s.Flight)
+                .Include(s => s.Aircraft)
                 .FirstOrDefaultAsync(m => m.SeatId == id);
             if (seat == null)
             {
@@ -64,9 +65,7 @@ namespace FlyHighStreamlineCapstone.Controllers
         // GET: Seats/Create
         public IActionResult Create()
         {
-
-            ViewData["FlightId"] = new SelectList(_context.Flight, "FlightId", "FlightNo");
-
+            ViewData["AircraftId"] = new SelectList(_context.Aircraft, "AircraftId", "AircraftType");
             return View();
         }
 
@@ -75,14 +74,14 @@ namespace FlyHighStreamlineCapstone.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("SeatId,FlightId,SeatNumber,Class,IsAvailable,Price")] SeatViewModel seatViewModel)
+        public async Task<IActionResult> Create([Bind("SeatId,AircraftId,SeatNumber,Class,IsAvailable,Price")] SeatViewModel seatViewModel)
         {
             if (ModelState.IsValid)
             {
                 Seat seat = new Seat
                 {
                     SeatId = seatViewModel.SeatId,
-                    FlightId = seatViewModel.FlightId, // Set the FlightId property
+                    AircraftId = seatViewModel.AircraftId, // Set the FlightId property
                     SeatNumber = seatViewModel.SeatNumber,
                     Class = seatViewModel.Class,
                     IsAvailable = seatViewModel.IsAvailable,
@@ -92,7 +91,7 @@ namespace FlyHighStreamlineCapstone.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["FlightId"] = new SelectList(_context.Flight, "FlightId", "FlightId", seatViewModel.FlightId);
+            ViewData["AircraftId"] = new SelectList(_context.Aircraft, "AircraftId", "AircraftId", seatViewModel.AircraftId);
             return View(seatViewModel);
         }
 
@@ -109,7 +108,7 @@ namespace FlyHighStreamlineCapstone.Controllers
             {
                 return NotFound();
             }
-            ViewData["FlightId"] = new SelectList(_context.Flight, "FlightId", "FlightId", seat.FlightId);
+            ViewData["AircraftId"] = new SelectList(_context.Aircraft, "AircraftId", "AircraftId", seat.AircraftId);
             return View(seat);
         }
 
@@ -118,7 +117,7 @@ namespace FlyHighStreamlineCapstone.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("SeatId,FlightId,SeatNumber,Class,IsAvailable,Price")] Seat seat)
+        public async Task<IActionResult> Edit(int id, [Bind("SeatId,AircraftId,SeatNumber,Class,IsAvailable,Price")] Seat seat)
         {
             if (id != seat.SeatId)
             {
@@ -145,7 +144,7 @@ namespace FlyHighStreamlineCapstone.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["FlightId"] = new SelectList(_context.Flight, "FlightId", "FlightId", seat.FlightId);
+            ViewData["AircraftId"] = new SelectList(_context.Aircraft, "AircraftId", "AircraftId", seat.AircraftId);
             return View(seat);
         }
 
@@ -158,7 +157,7 @@ namespace FlyHighStreamlineCapstone.Controllers
             }
 
             var seat = await _context.Seat
-                .Include(s => s.Flight)
+                .Include(s => s.Aircraft)
                 .FirstOrDefaultAsync(m => m.SeatId == id);
             if (seat == null)
             {

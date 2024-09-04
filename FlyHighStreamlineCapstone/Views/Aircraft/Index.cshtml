@@ -1,4 +1,4 @@
-﻿@model IEnumerable<FlyHighStreamlineCapstone.Models.Aircraft>
+﻿@model IEnumerable<FlyHighStreamlineCapstone.ViewModel.AircraftListViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -38,6 +38,7 @@
         background-color: #dc3545; /* Red */
         color: white;
     }
+
 </style>
 
 <div class="container mt-4">
@@ -46,12 +47,11 @@
             <h1>Aircraft</h1>
         </div>
         <div class="col-md-6 text-end">
-         
+
             <a asp-controller="Aircraft" asp-action="Create" class="btn btn-primary">Add Aircraft</a>
         </div>
     </div>
 </div>
-
 <table class="airline-table">
     <thead>
         <tr>
@@ -59,7 +59,7 @@
                 @Html.DisplayNameFor(model => model.AircraftType)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Airline)
+                @Html.DisplayNameFor(model => model.AirlineName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.RegistrationNumber)
@@ -70,7 +70,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.ManufactureDate)
             </th>
-           
+          
             <th>Action</th>
         </tr>
     </thead>
@@ -79,9 +79,6 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.AircraftType)
-            </td>
-                <td>
-                @Html.DisplayFor(modelItem => item.Airline.Name) 
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.RegistrationNumber)
@@ -92,11 +89,13 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ManufactureDate)
             </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AirlineName)
+            </td>
+            <td>
+                    <a asp-action="Edit" asp-route-id="@item.AircraftId" class="btn btn-sm btn-edit">Edit</a> |
 
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.AircraftId" class="btn btn-sm btn-edit">Edit </a> 
-                  @*   <a asp-action="Delete" asp-route-id="@item.AircraftId" class="btn btn-sm btn-delete">Delete</a> | *@
-                </td>
+            </td>
         </tr>
 }
     </tbody>

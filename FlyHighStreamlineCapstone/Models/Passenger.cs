@@ -7,10 +7,8 @@ namespace FlyHighStreamlineCapstone.Models
         [Key]
         public int PassengerId { get; set; }
 
-        [Required]
         public string FirstName { get; set; }
-
-        [Required]
+   
         public string LastName { get; set; }
 
         [DataType(DataType.Date)]

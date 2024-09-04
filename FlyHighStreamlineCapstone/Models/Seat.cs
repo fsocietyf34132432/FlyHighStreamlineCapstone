@@ -8,9 +8,10 @@ namespace FlyHighStreamlineCapstone.Models
         [Key]
         public int SeatId { get; set; }
 
-        [ForeignKey("Flight")]
-        public int FlightId { get; set; }
-        public Flight Flight { get; set; }
+        [ForeignKey("Aircraft")]
+        public int AircraftId { get; set; }
+        public Aircraft Aircraft { get; set; }
+
 
         public string SeatNumber { get; set; }
 

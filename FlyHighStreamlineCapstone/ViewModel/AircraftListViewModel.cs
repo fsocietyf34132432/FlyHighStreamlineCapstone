@@ -1,11 +1,9 @@
-﻿using FlyHighStreamlineCapstone.Models;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 
 namespace FlyHighStreamlineCapstone.ViewModel
 {
-    public class AircraftViewModel
+    public class AircraftListViewModel
     {
         [Key]
         public int AircraftId { get; set; }
@@ -18,10 +16,6 @@ namespace FlyHighStreamlineCapstone.ViewModel
         public int Capacity { get; set; } //189
         [DataType(DataType.Date)]
         public DateTime ManufactureDate { get; set; } //2015-03-12
-
-
-        [DisplayName("AirlineName")]
-        public int AirlineId { get; set; }
-
+        public string AirlineName { get; set; }
     }
 }

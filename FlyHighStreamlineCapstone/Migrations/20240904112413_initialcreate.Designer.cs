@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FlyHighStreamlineCapstone.Migrations
 {
     [DbContext(typeof(FlyHighStreamlineCapstoneContext))]
-    [Migration("20240903015859_initialcreate")]
+    [Migration("20240904112413_initialcreate")]
     partial class initialcreate
     {
         /// <inheritdoc />
@@ -212,12 +212,12 @@ namespace FlyHighStreamlineCapstone.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SeatId"));
 
+                    b.Property<int>("AircraftId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Class")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("FlightId")
-                        .HasColumnType("int");
 
                     b.Property<bool>("IsAvailable")
                         .HasColumnType("bit");
@@ -231,7 +231,7 @@ namespace FlyHighStreamlineCapstone.Migrations
 
                     b.HasKey("SeatId");
 
-                    b.HasIndex("FlightId");
+                    b.HasIndex("AircraftId");
 
                     b.ToTable("Seat");
                 });
@@ -329,11 +329,11 @@ namespace FlyHighStreamlineCapstone.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SeatId"));
 
-                    b.Property<string>("Class")
+                    b.Property<string>("AircraftType")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("FlightNo")
+                    b.Property<string>("Class")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -360,12 +360,12 @@ namespace FlyHighStreamlineCapstone.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SeatId"));
 
+                    b.Property<int>("AircraftId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Class")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("FlightId")
-                        .HasColumnType("int");
 
                     b.Property<bool>("IsAvailable")
                         .HasColumnType("bit");
@@ -430,13 +430,13 @@ namespace FlyHighStreamlineCapstone.Migrations
 
             modelBuilder.Entity("FlyHighStreamlineCapstone.Models.Seat", b =>
                 {
-                    b.HasOne("FlyHighStreamlineCapstone.Models.Flight", "Flight")
+                    b.HasOne("FlyHighStreamlineCapstone.Models.Aircraft", "Aircraft")
                         .WithMany()
-                        .HasForeignKey("FlightId")
+                        .HasForeignKey("AircraftId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Flight");
+                    b.Navigation("Aircraft");
                 });
 #pragma warning restore 612, 618
         }

@@ -12,23 +12,11 @@
         margin-bottom: 20px; /* Add some space below */
     }
 
-
-     
-
         .airline-table th, .airline-table td {
             border: 1px solid #ddd; /* Light gray border */
             padding: 12px;
-            text-align: left !important;
-        }
-
-        .airline-table th, .airline-table td {
-            /* ... (existing styles) ... */
             text-align: left;
         }
-
-            .airline-table td:first-child {
-                text-align: left !important; /* Use !important to override any conflicting styles */
-            }
     /* Edit Button Styling */
     .btn-edit {
         background-color: #007bff; /* Blue */
@@ -64,16 +52,12 @@
         </div>
     </div>
 </div>
-
-
-
 <table class="airline-table">
     <thead>
         <tr>
-
             <th>
-                @Html.DisplayNameFor(model => model.FlightNo)
-            </th> 
+                @Html.DisplayNameFor(model => model.AircraftType)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.SeatNumber)
             </th>
@@ -86,21 +70,22 @@
             <th>
                 @Html.DisplayNameFor(model => model.Price)
             </th>
-            <th>Action</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var item in Model)
+        {
             <tr>
-            <td>
-                    @Html.DisplayFor(modelItem => item.FlightNo)
-            </td> 
-            <td>
-                @Html.DisplayFor(modelItem => item.SeatNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Class)
-            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AircraftType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SeatNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Class)
+                </td>
                 <td>
                     @if (item.IsAvailable)
                     {
@@ -111,14 +96,15 @@
                         <span style="color: red;">&#10005;</span>
                     }
                 </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
                     <a asp-action="Edit" asp-route-id="@item.SeatId" class="btn btn-sm btn-edit">Edit</a>
                     @*            <a asp-action="Delete" asp-route-id="@item.SeatId">Delete</a> | *@
-            </td>
-        </tr>
-}
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+

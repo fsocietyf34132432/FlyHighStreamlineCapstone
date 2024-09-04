@@ -10,7 +10,7 @@ namespace FlyHighStreamlineCapstone.ViewModel
         public int SeatId { get; set; }
 
 
-        public string FlightNo { get; set; }
+        public string AircraftType { get; set; }
         public string SeatNumber { get; set; }
 
         public string Class { get; set; }

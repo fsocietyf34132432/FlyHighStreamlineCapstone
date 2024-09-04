@@ -1,6 +1,7 @@
 ﻿using FlyHighStreamlineCapstone.Models;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 
 namespace FlyHighStreamlineCapstone.ViewModel
 {
@@ -9,7 +10,8 @@ namespace FlyHighStreamlineCapstone.ViewModel
         [Key]
         public int SeatId { get; set; }
 
-        public int FlightId { get; set; }
+        [DisplayName("AircraftType")]
+        public int AircraftId { get; set; }
         public string SeatNumber { get; set; }
 
         public string Class { get; set; }
